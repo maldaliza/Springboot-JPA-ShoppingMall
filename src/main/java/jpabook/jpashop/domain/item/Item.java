@@ -30,7 +30,7 @@ public abstract class Item {        // 구현체를 가질 것이므로 추상�
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
 
-    //== 비즈니스 로직 (편의 메소드) ==//
+    //== 비즈니스 로직 ==//
     /*
      *  stock 증가
      */
