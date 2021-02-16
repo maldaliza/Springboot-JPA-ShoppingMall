@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,8 +14,8 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Table(name = "orders")
-@Getter
-@Setter
+@Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)      // 디폴트 생성자 만드는 것 방지!
 public class Order {
 
     @Id
