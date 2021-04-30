@@ -11,6 +11,7 @@ import javax.persistence.*;
 import static javax.persistence.FetchType.*;
 
 @Entity
+@Table(name = "order_item")
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)      // 디폴트 생성자 만드는 것 방지!
 public class OrderItem {
@@ -28,17 +29,17 @@ public class OrderItem {
     private Order order;
 
     private int orderPrice;     // 주문가격
-
     private int count;      // 주문수량
 
     //== 생성 메소드 ==//
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
         orderItem.setOrderPrice(orderPrice);
         orderItem.setCount(count);
-
         item.removeStock(count);
+
         return orderItem;
     }
 
@@ -48,8 +49,9 @@ public class OrderItem {
     }
 
     //== 조회 로직 ==//
-    /*
-     *  주문상품 전체 가격 조회
+    /**
+     * 주문상품 전체 가격 조회
+     * @return
      */
     public int getTotalPrice() {
         return getOrderPrice() * getCount();

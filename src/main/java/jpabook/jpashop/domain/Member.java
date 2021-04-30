@@ -12,7 +12,7 @@ import java.util.List;
 public class Member {
 
     @Id @GeneratedValue
-    @Column(name = "member_id")
+    @Column(name = "member_id")     // PK 지정
     private Long id;
 
     private String name;
@@ -20,6 +20,6 @@ public class Member {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "member")     // orders 테이블에 있는 member 필드에 의해 맵핑된 것.
+    @OneToMany(mappedBy = "member")     // Order 클래스(orders 테이블)의 member 필드에 의해 맵핑
     private List<Order> orders = new ArrayList<>();
 }
