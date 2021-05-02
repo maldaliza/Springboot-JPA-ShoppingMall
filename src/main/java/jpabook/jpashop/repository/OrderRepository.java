@@ -18,17 +18,28 @@ public class OrderRepository {
 
     private final EntityManager em;
 
+    /**
+     * 주문 저장
+     * @param order
+     */
     public void save(Order order) {
         em.persist(order);
     }
 
+    /**
+     * 주문 단건 조회
+     * @param id
+     * @return
+     */
     public Order findOne(Long id) {
         Order result = em.find(Order.class, id);
         return result;
     }
 
     /**
-     * 주문의 검색기능에 해당
+     * 주문 검색 기능
+     * @param orderSearch
+     * @return
      */
     public List<Order> findAllByString(OrderSearch orderSearch) {
 
@@ -74,6 +85,8 @@ public class OrderRepository {
 
     /**
      * JPA Criteria
+     * @param orderSearch
+     * @return
      */
     public List<Order> findAllByCriteria(OrderSearch orderSearch) {
 

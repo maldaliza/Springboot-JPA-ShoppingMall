@@ -9,16 +9,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)     // 트랜잭션 안에서 데이터 변경할 때는 @Transactional이 필요하다! (읽기만 하는 메소드에선 readOnly = true)
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    /*
-     *  회원 가입
+    /**
+     * 회원 저장
+     * @param member
+     * @return
      */
-    @Transactional      // 쓰기 기능의 메소드 (readOnly = false (디폴트값!))
+    @Transactional
     public Long join(Member member) {
         validateDuplicateMember(member);        // 중복 회원 검증
         memberRepository.save(member);
@@ -33,15 +35,18 @@ public class MemberService {
         }
     }
 
-    /*
-     *  회원 전체 조회
+    /**
+     * 회원 전체 조회
+     * @return
      */
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
-    /*
-     *  회원 1명만 조회
+    /**
+     * 회원 1명 조회
+     * @param memberId
+     * @return
      */
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);

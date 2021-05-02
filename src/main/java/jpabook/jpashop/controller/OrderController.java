@@ -22,6 +22,11 @@ public class OrderController {
     private final MemberService memberService;
     private final ItemService itemService;
 
+    /**
+     * 주문 생성 폼 (GET)
+     * @param model
+     * @return
+     */
     @GetMapping("/order")
     public String createForm(Model model) {
 
@@ -34,6 +39,13 @@ public class OrderController {
         return "order/orderForm";
     }
 
+    /**
+     * 주문 생성 처리 (POST)
+     * @param memberId
+     * @param itemId
+     * @param count
+     * @return
+     */
     @PostMapping("/order")
     public String order(@RequestParam("memberId") Long memberId,
                         @RequestParam("itemId") Long itemId,
@@ -43,14 +55,24 @@ public class OrderController {
         return "redirect:/orders";
     }
 
+    /**
+     * 주문 목록 검색 및 취소 (GET)
+     * @param orderSearch
+     * @param model
+     * @return
+     */
     @GetMapping("/orders")
     public String orderList(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
         List<Order> orders = orderService.findOrders(orderSearch);
         model.addAttribute("orders", orders);
-
         return "order/orderList";
     }
 
+    /**
+     * 주문 취소 (POST)
+     * @param orderId
+     * @return
+     */
     @PostMapping("/orders/{orderId}/cancel")
     public String cancelOrder(@PathVariable("orderId") Long orderId) {
         orderService.cancelOrder(orderId);

@@ -24,8 +24,12 @@ public class OrderService {
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
-    /*
-     *  주문
+    /**
+     * 주문
+     * @param memberId
+     * @param itemId
+     * @param count
+     * @return
      */
     @Transactional
     public Long order(Long memberId, Long itemId, int count) {
@@ -50,8 +54,9 @@ public class OrderService {
         return order.getId();
     }
 
-    /*
-     *  주문 취소
+    /**
+     * 주문 취소
+     * @param orderId
      */
     @Transactional
     public void cancelOrder(Long orderId) {
@@ -63,7 +68,11 @@ public class OrderService {
         order.cancel();
     }
 
-    // 검색
+    /**
+     * 주문 검색
+     * @param orderSearch
+     * @return
+     */
     public List<Order> findOrders(OrderSearch orderSearch) {
         return orderRepository.findAllByString(orderSearch);
     }

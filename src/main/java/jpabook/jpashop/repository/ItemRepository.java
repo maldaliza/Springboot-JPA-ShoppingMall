@@ -13,22 +13,34 @@ public class ItemRepository {
 
     private final EntityManager em;
 
+    /**
+     * 상품 저장
+     * @param item
+     */
     public void save(Item item) {
         if (item.getId() == null) {     // Item은 처음에는 id가 없다.
             em.persist(item);
-        } else {        // Item이 id가 있는 경우는 먼저 DB에 등록이 되있는 경우다.
+        } else {
             em.merge(item);
         }
     }
 
+    /**
+     * 상품 단건 조회
+     * @param id
+     * @return
+     */
     public Item findOne(Long id) {
         Item result = em.find(Item.class, id);
         return result;
     }
 
+    /**
+     * 상품 다건 조회
+     * @return
+     */
     public List<Item> findAll() {
-        List<Item> result = em.createQuery("select i from Item i", Item.class)
-                .getResultList();
+        List<Item> result = em.createQuery("select i from Item i", Item.class).getResultList();
         return result;
     }
 }
