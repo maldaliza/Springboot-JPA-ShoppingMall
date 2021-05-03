@@ -13,17 +13,25 @@
                 <th>가격</th>
                 <th>재고수량</th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="item : ${items}">
-                <td th:text="${item.id}"></td>
-                <td th:text="${item.name}"></td>
-                <td th:text="${item.price}"></td>
-                <td th:text="${item.stockQuantity}"></td>
+                <td th:text="${item.id}">ID</td>
+                <td>
+                    <a th:href="@{'/items/' + ${item.id}}" th:text="${item.name}">상품명</a>
+                </td>
+                <td th:text="${item.price}">가격</td>
+                <td th:text="${item.stockQuantity}">수량</td>
                 <td>
                     <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"
                        class="btn btn-primary" role="button">수정</a>
+                </td>
+                <td>
+                    <form th:action="@{/items/{id}/delete (id=${item.id})}" method="post">
+                        <input class="btn btn-danger" type="submit" role="button" value="삭제">
+                    </form>
                 </td>
             </tr>
             </tbody>

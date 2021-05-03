@@ -43,4 +43,12 @@ public class ItemRepository {
         List<Item> result = em.createQuery("select i from Item i", Item.class).getResultList();
         return result;
     }
+
+    /**
+     * 상품 삭제
+     * @param item
+     */
+    public void delete(Item item) {
+        em.remove(item);
+    }
 }

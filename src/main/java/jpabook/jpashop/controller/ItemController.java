@@ -63,6 +63,19 @@ public class ItemController {
     }
 
     /**
+     * 상품 상세보기
+     * @param itemId
+     * @param model
+     * @return
+     */
+    @GetMapping("/items/{itemId}")
+    public String detail(@PathVariable("itemId") Long itemId, Model model) {
+        Item findItem = itemService.findOne(itemId);
+        model.addAttribute("item", findItem);
+        return "items/detail";
+    }
+
+    /**
      * 상품 수정 폼 (GET)
      * @param itemId
      * @param model
@@ -92,8 +105,19 @@ public class ItemController {
      * @return
      */
     @PostMapping("items/{itemId}/edit")
-    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form) {
+    public String updateItem(@PathVariable("itemId") Long itemId, @ModelAttribute("form") BookForm form) {
         itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
+        return "redirect:/items";
+    }
+
+    /**
+     * 상품 삭제
+     * @param itemId
+     * @return
+     */
+    @PostMapping("/items/{itemId}/delete")
+    public String deleteItem(@PathVariable("itemId") Long itemId) {
+        itemService.deleteItem(itemId);
         return "redirect:/items";
     }
 }

@@ -1,6 +1,5 @@
 package jpabook.jpashop.service;
 
-import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -59,5 +58,15 @@ public class ItemService {
      */
     public Item findOne(Long itemId) {
         return itemRepository.findOne(itemId);
+    }
+
+    /**
+     * 상품 삭제
+     * @param itemId
+     */
+    @Transactional
+    public void deleteItem(Long itemId) {
+        Item findItem = itemRepository.findOne(itemId);
+        itemRepository.delete(findItem);
     }
 }
